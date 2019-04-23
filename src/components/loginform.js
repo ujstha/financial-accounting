@@ -97,71 +97,73 @@ class Login extends Component {
     const {classes} = this.props;
     return (
       <main className={classes.main}>
-      <CssBaseline />
-      <Paper className={classes.paper}>
-        <Avatar className={classes.avatar}>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5">
-          Sign In
-        </Typography>
-        <form className={classes.form} onSubmit={this.routeChange}>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="username">Username</InputLabel>
-            <Input 
-              type="text"
-              name="username"
-              id="username"
-              placeholder="Username"
-              onChange={this.onChange} 
-            />
-          </FormControl>
-          <FormControl margin="normal" required fullWidth>
-            <InputLabel htmlFor="password">Password</InputLabel>
-            <Input 
-              type="password"
-              name="password"
-              id="password"
-              placeholder="********"
-              onChange={this.onChange}
-            />
-          </FormControl>
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign in
-          </Button>
-        </form>
-        <p className="mt-4">Don't have an account? <Link to="/register" style={{textDecoration: 'none'}}>Register</Link></p>
-      </Paper>
-      <Snackbar
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'center',
-        }}
-        open={this.state.open}
-        autoHideDuration={6000}
-        onClose={this.handleClose}
-        ContentProps={{
-          'aria-describedby': 'message-id',
-        }}
-        message={<span id="message-id" className="text-warning" style={{fontSize: '25px', fontFamily: 'Raleway'}}>Invalid username or password</span>}
-        action={[
-          <IconButton
-            key="close"
-            aria-label="Close"
-            color="inherit"
-            onClick={this.handleClose}
-          >
-            <CloseIcon className="text-warning" />
-          </IconButton>,
-        ]}
-      />
-    </main>
+        <CssBaseline />
+        <Paper className={classes.paper} style={{borderRadius: '0px'}}>
+          <Avatar className={classes.avatar}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Sign In
+          </Typography>
+          <form className={classes.form} onSubmit={this.routeChange}>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="username">Username</InputLabel>
+              <Input 
+                type="text"
+                name="username"
+                id="username"
+                placeholder="Username"
+                onChange={this.onChange} 
+              />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+              <InputLabel htmlFor="password">Password</InputLabel>
+              <Input 
+                type="password"
+                name="password"
+                id="password"
+                placeholder="********"
+                onChange={this.onChange}
+              />
+            </FormControl>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              className={classes.submit}
+              style={{borderRadius: '0px'}}
+            >
+              Sign in
+            </Button>
+          </form>
+          <p className="mt-4">Don't have an account? <Link to="/register" style={{textDecoration: 'none'}}>Register</Link></p>
+        </Paper>
+        <Snackbar
+          anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'center',
+          }}
+          open={this.state.open}
+          autoHideDuration={6000}
+          onClose={this.handleClose}
+          style={{borderRadius: '0px'}}
+          ContentProps={{
+            'aria-describedby': 'message-id',
+          }}
+          message={<span id="message-id" className="text-warning" style={{fontSize: '25px', fontFamily: 'Raleway'}}>Invalid username or password</span>}
+          action={[
+            <IconButton
+              key="close"
+              aria-label="Close"
+              color="inherit"
+              onClick={this.handleClose}
+            >
+              <CloseIcon className="text-warning" />
+            </IconButton>,
+          ]}
+        />
+      </main>
     );
   }
 }

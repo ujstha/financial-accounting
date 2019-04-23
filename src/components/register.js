@@ -108,7 +108,7 @@ class Register extends Component {
     return (
         <main className={classes.main}>
             <CssBaseline />
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} style={{borderRadius: '0px'}}>
                 <Avatar className={classes.avatar}>
                     <LockOutlinedIcon />
                 </Avatar>
@@ -142,6 +142,7 @@ class Register extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    style={{borderRadius: '0px'}}
                 >
                     Register
                 </Button>
@@ -156,6 +157,7 @@ class Register extends Component {
                 open={this.state.open}
                 autoHideDuration={6000}
                 onClose={this.handleClose}
+                style={{borderRadius: '0px'}}
                 ContentProps={{
                 'aria-describedby': 'message-id',
                 }}

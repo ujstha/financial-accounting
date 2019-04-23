@@ -24,23 +24,33 @@
   padding-bottom: 10px;
 }
 #menu-outer {
-  height: auto;
   text-align: center;
   margin-top: 2%;
+  max-width: 100%;
+  overflow: hidden;
 }
 
 ul#horizontal-list {
 	min-width: 100%;
-	list-style: none;
-
-  width: 50em;
+  list-style: none;
+  width: 100%;
+  max-width: 100%;
 }
 ul#horizontal-list li {
   display: inline;
-  margin-right: 5px;
+  margin: 5px;
   padding: 15px;
   background-color: black;
   color: white;
+}
+.btn.btn-secondary {
+  background-color: rgba(0, 0, 0, 1);
+  border-radius: 0px;
+  margin: 5px auto;
+  padding: 5px 5px 0px 5px;
+}
+.btn.btn-secondary.active:hover {
+  cursor: pointer;
 }
 ul#horizontal-list li:hover {
   cursor: pointer;

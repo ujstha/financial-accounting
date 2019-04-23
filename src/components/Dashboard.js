@@ -9,7 +9,7 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
+import { Button } from 'reactstrap';
 import axios from 'axios';
 import moment from 'moment';
 
@@ -238,11 +238,11 @@ class Dashboard extends Component {
             {renderAccounts}
           </div>
         </div>     
-        <div id="menu-outer">
-          <ul>
-          {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
+        <div className="row">
+          <ul className="col-md-12 text-center">
+            {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
           </ul>
-          <ul id="horizontal-list">
+          <ul id="horizontal-list" className="col-md-12 text-center">
             {(currentPage > 2) ? first : firstDisable}
             {(currentPage > 1) ? previous : previousDisable}
             {renderPageNumbers}
@@ -250,9 +250,6 @@ class Dashboard extends Component {
             {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : lastDisable}
           </ul>
         </div>  
-        <div className="row">
-          
-        </div>
       </div>
     );
   }
