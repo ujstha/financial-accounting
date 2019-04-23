@@ -157,7 +157,7 @@ class App extends Component {
                 <MenuIcon />
               </IconButton>
               <Typography variant="h6" color="inherit" noWrap>
-                Mini variant drawer
+                Mini 
               </Typography>
             </Toolbar>
           </AppBar>
