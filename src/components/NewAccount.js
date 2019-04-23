@@ -183,13 +183,14 @@ class NewAccount extends Component {
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="inventoryAffects">Inventory Affects</InputLabel>
-                    <Input 
-                        type="text"
-                        name="inventoryAffects"
-                        id="inventoryAffects"
-                        placeholder="Inventory Affects"
-                        onChange={this.onChange}
-                    />
+                    <Select
+                      value={this.state.inventoryAffects}
+                      onChange={this.onChange}
+                      input={<Input name="inventoryAffects" id="inventoryAffects" />}
+                    >
+                      <MenuItem value="false">False</MenuItem>
+                      <MenuItem value="true">True</MenuItem>
+                    </Select>
                 </FormControl>
                 <FormControl margin="normal" required fullWidth>
                     <InputLabel htmlFor="descreption">Description</InputLabel>

@@ -44,7 +44,7 @@ class Dashboard extends Component {
       currentPage: 1,
       accPerPage: 3
     }
-    this.handleClick = this.handleClick.bind(this);
+    //this.handleClick = this.handleClick.bind(this);
   }
   
   componentDidMount(){
@@ -79,11 +79,25 @@ class Dashboard extends Component {
     .catch(err => console.log(err));
   }
 
-  handleClick(event) {
+  handleClick = event => {
     this.setState({
       currentPage: Number(event.target.id)
     });
   }
+
+  handleMoveLeft = evt => {
+    evt.preventDefault();
+    this.setState({
+      currentPage: this.state.currentPage - 1
+    })
+  };
+
+  handleMoveRight = evt => {
+    evt.preventDefault();
+    this.setState({
+      currentPage: this.state.currentPage + 1
+    })
+  };
 
   render() {
     if(!(localStorage.getItem('x-auth-token'))) {
@@ -95,6 +109,9 @@ class Dashboard extends Component {
     const indexOfLastAccount = currentPage * accPerPage;
     const indexOfFirstAccount = indexOfLastAccount - accPerPage;
     const currentAccounts = accList.slice(indexOfFirstAccount, indexOfLastAccount);
+    const movleft = (
+      <i className="material-icons" onClick={this.handleMoveLeft}>keyboard_arrow_left</i>
+    )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
       <div className="col-md-8 offset-md-2 mt-3" key={i}>
@@ -110,8 +127,8 @@ class Dashboard extends Component {
                   {acc.accountName}
                 </Link>
               </p>
-              <p><b>Alias : </b>{acc.alias}</p>
-              <p><b>Closing Balance : </b>{acc.closingBalance}</p>
+              <p className="text-capitalize"><b>Alias : </b>{acc.alias}</p>
+              <p className="text-capitalize"><b>Closing Balance : </b>{acc.closingBalance}</p>
               <b>Closing Balance History</b>
               <div className="row">
                 {acc.closingBalanceHistory.map((accHistory, i) => (
@@ -127,10 +144,10 @@ class Dashboard extends Component {
                   </div>
                 ))}
               </div>
-              <p><b>Description : </b>{acc.descreption}</p>
-              <p><b>Inverntory Affects : </b>{acc.inventoryAffects.toString()}</p>
+              <p className="text-capitalize"><b>Description : </b>{acc.descreption}</p>
+              <p className="text-capitalize"><b>Inverntory Affects : </b>{acc.inventoryAffects.toString()}</p>
               <p><b>Opening Balance : </b>{acc.openingBalance}</p>
-              <p><b>Tag : </b>{acc.tag}</p>
+              <p className="text-capitalize"><b>Tag : </b>{acc.tag}</p>
             </Typography>
           </ExpansionPanelDetails>              
         </ExpansionPanel>
@@ -170,7 +187,7 @@ class Dashboard extends Component {
         </div>     
         <div id="menu-outer">
           <ul id="horizontal-list">
-            {renderPageNumbers}
+          {(currentPage > 1) ? movleft : ''}{renderPageNumbers}
           </ul>
         </div>  
         <div className="row">
