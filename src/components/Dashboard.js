@@ -237,9 +237,8 @@ class Dashboard extends Component {
           <div className="row">
             {renderAccounts}
           </div>
-        </div>     
-        <div className="row">
-          <ul className="col-md-12 text-center">
+        </div>
+        {(renderPageNumbers.length === 0) ? '' : <div className="row"><ul className="col-md-12 text-center">
             {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
           </ul>
           <ul id="horizontal-list" className="col-md-12 text-center">
@@ -248,8 +247,7 @@ class Dashboard extends Component {
             {renderPageNumbers}
             {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : nextDisable}
             {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : lastDisable}
-          </ul>
-        </div>  
+          </ul></div>}       
       </div>
     );
   }
