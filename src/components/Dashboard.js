@@ -129,8 +129,18 @@ class Dashboard extends Component {
         <i className="material-icons">keyboard_arrow_left</i>
       </Button>
     )
+    const previousDisable = (
+      <Button disabled>
+        <i className="material-icons">keyboard_arrow_left</i>
+      </Button>
+    )
     const next = (
       <Button onClick={this.handleNext}>
+        <i className="material-icons">keyboard_arrow_right</i>
+      </Button>
+    )
+    const nextDisable = (
+      <Button disabled>
         <i className="material-icons">keyboard_arrow_right</i>
       </Button>
     )
@@ -139,8 +149,18 @@ class Dashboard extends Component {
         <i className="material-icons">first_page</i>
       </Button>
     )
+    const firstDisable = (
+      <Button disabled>
+        <i className="material-icons">first_page</i>
+      </Button>
+    )
     const last = (
       <Button onClick={this.handleLast}>
+        <i className="material-icons">last_page</i>
+      </Button>
+    )
+    const lastDisable = (
+      <Button disabled>
         <i className="material-icons">last_page</i>
       </Button>
     )
@@ -219,16 +239,19 @@ class Dashboard extends Component {
           </div>
         </div>     
         <div id="menu-outer">
+          <ul>
+          {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
+          </ul>
           <ul id="horizontal-list">
-          {(currentPage > 2) ? first : ''}
-          {(currentPage > 1) ? previous : ''}
-          {renderPageNumbers}
-          {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : ''}
-          {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : ''}
+            {(currentPage > 2) ? first : firstDisable}
+            {(currentPage > 1) ? previous : previousDisable}
+            {renderPageNumbers}
+            {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : nextDisable}
+            {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : lastDisable}
           </ul>
         </div>  
         <div className="row">
-          {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
+          
         </div>
       </div>
     );
