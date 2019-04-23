@@ -199,20 +199,21 @@ class App extends Component {
               ))}
             </List>
           </Drawer>
+          <Switch>
           <main className={classes.content}>
             <div className={classes.toolbar} />
             <Typography paragraph className="container-fluid">
-            <Switch>
+            
                 <Route path="/" component={Login} exact></Route>
                 <Route path="/register" component={Register} exact></Route>
                 <Route path="/dashboard" component={Dashboard}></Route>
                 <Route path="/newAccount" component={NewAccount}></Route>
                 <Route path="/transaction/:accountName" component={Transaction}></Route>
                 <Route path="/deleteAccount/:accountName" component={DeleteAccount}></Route>
-                <Route  component={Example}></Route>
-              </Switch>
+              
             </Typography>
           </main>
+          </Switch>
         </div>
         </BrowserRouter>
       </MuiThemeProvider>
