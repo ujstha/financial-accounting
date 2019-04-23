@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
@@ -143,7 +143,7 @@ class NewAccount extends Component {
     return (
         <main className={classes.main}>
             <CssBaseline />
-            <Paper className={classes.paper}>
+            <Paper className={classes.paper} style={{borderRadius: '0px'}}>
                 <Typography component="h1" variant="h5">
                     Add New Account
                 </Typography>
@@ -217,6 +217,7 @@ class NewAccount extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.submit}
+                    style={{borderRadius: '0px'}}
                 >
                     Add
                 </Button>

@@ -116,12 +116,12 @@ export default class NavBar extends React.Component {
     )
     return (
       <div>
-        <Navbar color="dark" dark expand="md" className='fixed-top text-uppercase' style={{fontFamily: 'Raleway'}}>
+        <Navbar color="dark" dark expand="md" className='fixed-top'>
           <NavbarBrand href="/">Financial</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
-              <NavItem>
+              <NavItem className='text-uppercase'>
                 {localStorage.getItem('x-auth-token') ? userNav : loginNav}
               </NavItem>
             </Nav>

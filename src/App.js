@@ -8,11 +8,39 @@ import Register from './components/register';
 import Example from './components/error';
 import NewAccount from './components/NewAccount';
 import Transaction from './components/transaction';
-import DeleteAccount from './components/deleteAccount';
+import DeleteAccount from './components/DeleteAccount';
+import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
+import { createMuiTheme } from "@material-ui/core/styles";
 
+const theme = createMuiTheme({
+  typography: {
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      'Raleway',
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+  },
+  overrides: {
+    Button: { // Name of the component ⚛️ / style sheet
+      root: { // Name of the rule
+        borderRadius: 0, // Some CSS
+      },
+    },
+  },
+});
 class App extends Component {
   render() {
     return (
+      <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="App">
           <NavBar />
@@ -29,6 +57,7 @@ class App extends Component {
           </div>
         </div>
       </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }

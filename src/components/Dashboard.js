@@ -167,7 +167,7 @@ class Dashboard extends Component {
 
     const renderAccounts = currentAccounts.map((acc, i) => (
       <div className="col-md-8 offset-md-2 mt-3" key={i}>
-        <ExpansionPanel>
+        <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName}</Typography>
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}>Delete</Link></Typography>
@@ -185,7 +185,7 @@ class Dashboard extends Component {
               <div className="row">
                 {acc.closingBalanceHistory.map((accHistory, i) => (
                   <div className="col-md-4 my-3" key={i}>
-                    <Card className={classes.card}>
+                    <Card className={classes.card} style={{borderRadius: '0px'}}>
                       <CardContent>
                         <Typography style={{fontSize: '16px'}}>
                           <p><b>Balance : </b>{accHistory.balance}</p>

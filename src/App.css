@@ -1,15 +1,15 @@
 .App {
   font-family: 'Raleway', sans-serif;
 }
-.MuiButtonBase-root-27.MuiButton-root-1.MuiButton-contained-12.MuiButton-raised-15,
-.MuiButtonBase-root-159.MuiButton-root-133.MuiButton-contained-144.MuiButton-containedPrimary-145.MuiButton-raised-147.MuiButton-raisedPrimary-148.MuiButton-fullWidth-158,
-.MuiPaper-root-47.MuiPaper-elevation2-51.MuiPaper-rounded-48,
-.MuiPaper-root-6.MuiPaper-elevation2-10.MuiPaper-rounded-7,
-.MuiPaper-root-39.MuiPaper-elevation1-42.MuiPaper-rounded-40.MuiExpansionPanel-root-35.MuiExpansionPanel-rounded-36,
-.MuiPaper-root-39.MuiPaper-elevation1-42.MuiPaper-rounded-40.MuiCard-root-113.Dashboard-card-25,
-.MuiPaper-root-62.MuiPaper-elevation1-65.MuiPaper-rounded-63.MuiExpansionPanel-root-58.MuiExpansionPanel-rounded-59,
-.MuiPaper-root-62.MuiPaper-elevation1-65.MuiPaper-rounded-63.MuiCard-root-151.Dashboard-card-48 {
-  border-radius: 0%;
+.navbar-brand {
+  font-family: 'Srisakdi', cursive;
+}
+.navbar {
+  -webkit-box-shadow: 0 8px 6px -6px #999;
+  -moz-box-shadow: 0 8px 6px -6px #999;
+  box-shadow: 0 8px 6px -6px #999;
+
+  /* the rest of your styling */
 }
 .MuiButtonBase-root-7.MuiIconButton-root-1 {
   padding: 5px;
