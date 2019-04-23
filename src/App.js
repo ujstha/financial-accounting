@@ -33,7 +33,6 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <MuiThemeProvider theme={theme}>
       <BrowserRouter>
         <div className="App">
           <NavBar />
@@ -50,7 +49,6 @@ class App extends Component {
           </div>
         </div>
       </BrowserRouter>
-      </MuiThemeProvider>
     );
   }
 }
