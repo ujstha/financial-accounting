@@ -166,7 +166,7 @@ class Dashboard extends Component {
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
-      <div className="col-md-8 offset-md-2 mt-3" key={i}>
+      <div className="col-md-8 offset-md-2" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName}</Typography>
