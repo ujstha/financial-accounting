@@ -42,7 +42,8 @@ class Dashboard extends Component {
       accounts: [],
       accList: [],
       currentPage: 1,
-      accPerPage: 1
+      accPerPage: 1,
+      lastPage: ''
     }
     //this.handleClick = this.handleClick.bind(this);
   }
@@ -85,17 +86,31 @@ class Dashboard extends Component {
     });
   }
 
-  handleMoveLeft = evt => {
-    evt.preventDefault();
+  handlePrevious = event => {
+    event.preventDefault();
     this.setState({
       currentPage: this.state.currentPage - 1
     })
   };
 
-  handleMoveRight = evt => {
-    evt.preventDefault();
+  handleFirst = event => {
+    event.preventDefault();
+    this.setState({
+      currentPage: 1
+    })
+  };
+
+  handleNext = event => {
+    event.preventDefault();
     this.setState({
       currentPage: this.state.currentPage + 1
+    })
+  };
+
+  handleLast = event => {
+    event.preventDefault();
+    this.setState({
+      currentPage: this.state.lastPage
     })
   };
 
@@ -109,11 +124,17 @@ class Dashboard extends Component {
     const indexOfLastAccount = currentPage * accPerPage;
     const indexOfFirstAccount = indexOfLastAccount - accPerPage;
     const currentAccounts = accList.slice(indexOfFirstAccount, indexOfLastAccount);
-    const movleft = (
-      <i className="material-icons" onClick={this.handleMoveLeft}>keyboard_arrow_left</i>
+    const previous = (
+      <i className="material-icons" onClick={this.handlePrevious}>keyboard_arrow_left</i>
     )
-    const movright = (
-      <i className="material-icons" onClick={this.handleMoveRight}>keyboard_arrow_right</i>
+    const next = (
+      <i className="material-icons" onClick={this.handleNext}>keyboard_arrow_right</i>
+    )
+    const first = (
+      <i onClick={this.handleFirst}>First</i>
+    )
+    const last = (
+      <i onClick={this.handleLast}>Last</i>
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
@@ -156,6 +177,7 @@ class Dashboard extends Component {
         </ExpansionPanel>
       </div>
     ))
+    
     /*
     let account = this.state.accounts.map((acc, i) => (
       <div className="col-md-4 mt-3" key={i}>
@@ -190,11 +212,15 @@ class Dashboard extends Component {
         </div>     
         <div id="menu-outer">
           <ul id="horizontal-list">
-          {(currentPage > 1) ? movleft : ''}{renderPageNumbers}{((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? movright : ''}
+          {(currentPage > 2) ? first : ''}
+          {(currentPage > 1) ? previous : ''}
+          {renderPageNumbers}
+          {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : ''}
+          {((currentPage <= 2) && (currentPage < (renderPageNumbers.length - 1))) ? last : ''}
           </ul>
         </div>  
         <div className="row">
-          {this.state.currentPage}
+          {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
         </div>
       </div>
     );
