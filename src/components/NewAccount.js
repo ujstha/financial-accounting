@@ -20,7 +20,6 @@ const styles = theme => ({
   main: {
     width: 'auto',
     display: 'block', // Fix IE 11 issue.
-    
     marginTop: '100px',
     [theme.breakpoints.up(400 + theme.spacing.unit * 3 * 2)]: {
       width: 500,

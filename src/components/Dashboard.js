@@ -9,9 +9,9 @@ import Typography from '@material-ui/core/Typography';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Button from '@material-ui/core/Button';
 import axios from 'axios';
 import moment from 'moment';
-import Pagination from 'react-js-pagination';
 
 const styles = theme => ({
   root: {
@@ -125,16 +125,24 @@ class Dashboard extends Component {
     const indexOfFirstAccount = indexOfLastAccount - accPerPage;
     const currentAccounts = accList.slice(indexOfFirstAccount, indexOfLastAccount);
     const previous = (
-      <i className="material-icons" onClick={this.handlePrevious}>keyboard_arrow_left</i>
+      <Button onClick={this.handlePrevious}>
+        <i className="material-icons">keyboard_arrow_left</i>
+      </Button>
     )
     const next = (
-      <i className="material-icons" onClick={this.handleNext}>keyboard_arrow_right</i>
+      <Button onClick={this.handleNext}>
+        <i className="material-icons">keyboard_arrow_right</i>
+      </Button>
     )
     const first = (
-      <i onClick={this.handleFirst}>First</i>
+      <Button onClick={this.handleFirst}>
+        <i className="material-icons">first_page</i>
+      </Button>
     )
     const last = (
-      <i onClick={this.handleLast}>Last</i>
+      <Button onClick={this.handleLast}>
+        <i className="material-icons">last_page</i>
+      </Button>
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
@@ -216,7 +224,7 @@ class Dashboard extends Component {
           {(currentPage > 1) ? previous : ''}
           {renderPageNumbers}
           {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : ''}
-          {((currentPage <= 2) && (currentPage < (renderPageNumbers.length - 1))) ? last : ''}
+          {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : ''}
           </ul>
         </div>  
         <div className="row">
