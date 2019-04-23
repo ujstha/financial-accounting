@@ -158,7 +158,7 @@ class NewAccount extends Component {
                         onChange={this.onChange}
                     />
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
+                <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="alias">Alias Name</InputLabel>
                     <Input 
                         type="text"
@@ -191,7 +191,7 @@ class NewAccount extends Component {
                       <MenuItem value="true">True</MenuItem>
                     </Select>
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
+                <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="descreption">Description</InputLabel>
                     <Input 
                         type="text"
@@ -201,7 +201,7 @@ class NewAccount extends Component {
                         onChange={this.onChange}
                     />
                 </FormControl>
-                <FormControl margin="normal" required fullWidth>
+                <FormControl margin="normal" fullWidth>
                     <InputLabel htmlFor="openingBalance">Opening Balance</InputLabel>
                     <Input 
                         type="text"
