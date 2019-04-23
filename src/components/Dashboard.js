@@ -42,7 +42,7 @@ class Dashboard extends Component {
       accounts: [],
       accList: [],
       currentPage: 1,
-      accPerPage: 3
+      accPerPage: 1
     }
     //this.handleClick = this.handleClick.bind(this);
   }
@@ -111,6 +111,9 @@ class Dashboard extends Component {
     const currentAccounts = accList.slice(indexOfFirstAccount, indexOfLastAccount);
     const movleft = (
       <i className="material-icons" onClick={this.handleMoveLeft}>keyboard_arrow_left</i>
+    )
+    const movright = (
+      <i className="material-icons" onClick={this.handleMoveRight}>keyboard_arrow_right</i>
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
@@ -187,7 +190,7 @@ class Dashboard extends Component {
         </div>     
         <div id="menu-outer">
           <ul id="horizontal-list">
-          {(currentPage > 1) ? movleft : ''}{renderPageNumbers}
+          {(currentPage > 1) ? movleft : ''}{renderPageNumbers}{((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? movright : ''}
           </ul>
         </div>  
         <div className="row">
