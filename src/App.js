@@ -33,22 +33,24 @@ const theme = createMuiTheme({
 class App extends Component {
   render() {
     return (
-      <BrowserRouter>
-        <div className="App">
-          <NavBar />
-          <div style={{ marginTop: '60px' }} className="container-fluid">
-            <Switch>
-              <Route path="/" component={Login} exact></Route>
-              <Route path="/register" component={Register} exact></Route>
-              <Route path="/dashboard" component={Dashboard}></Route>
-              <Route path="/newAccount" component={NewAccount}></Route>
-              <Route path="/transaction/:accountName" component={Transaction}></Route>
-              <Route path="/deleteAccount/:accountName" component={DeleteAccount}></Route>
-              <Route  component={Example}></Route>
-            </Switch>
+      <MuiThemeProvider theme={theme}>
+        <BrowserRouter>
+          <div className="App">
+            <NavBar />
+            <div style={{ marginTop: '60px' }} className="container-fluid">
+              <Switch>
+                <Route path="/" component={Login} exact></Route>
+                <Route path="/register" component={Register} exact></Route>
+                <Route path="/dashboard" component={Dashboard}></Route>
+                <Route path="/newAccount" component={NewAccount}></Route>
+                <Route path="/transaction/:accountName" component={Transaction}></Route>
+                <Route path="/deleteAccount/:accountName" component={DeleteAccount}></Route>
+                <Route  component={Example}></Route>
+              </Switch>
+            </div>
           </div>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>
+      </MuiThemeProvider>
     );
   }
 }
