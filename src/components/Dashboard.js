@@ -238,10 +238,8 @@ class Dashboard extends Component {
       <div className={classes.root}>
         <h1 className="text-capitalize">{user.username}</h1>
         <div id="accountsList" className="container-fluid">
-          <div>
-            <div className="row">
-              {renderAccounts}
-            </div>
+          <div className="row">
+            {renderAccounts}
           </div>
         </div>
         {(renderPageNumbers.length <= 1) ? '' : 
