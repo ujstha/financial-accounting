@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
@@ -50,7 +50,6 @@ class Register extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
       message: '',
       username: "",
       password: "",
@@ -83,10 +82,6 @@ class Register extends Component {
     this.setState({ visible: false });
   }
   
-  handleClose = () => {
-    this.setState({ open: false });
-  };
-
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
   };
@@ -114,78 +109,81 @@ class Register extends Component {
   }
 
   render() {
+    if(localStorage.getItem('x-auth-token')) {
+      return <Redirect to="/dashboard" />
+    }
     const {classes} = this.props;
     return (
         <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper} style={{borderRadius: '0px'}}>
-              <Alert color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
-                {this.state.message}
-              </Alert>
-              <Avatar className={classes.avatar}>
-                <LockOutlinedIcon />
-              </Avatar>
-              <Typography component="h1" variant="h5">
-              Register
-              </Typography>
-              <form className={classes.form} onSubmit={this.routeChange}>
-              <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="username">Username</InputLabel>
-                  <Input 
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                    onChange={this.onChange} 
-                  />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="password">Password</InputLabel>
-                  <Input 
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="********"
-                      onChange={this.onChange}
-                  />
-              </FormControl>
-              <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  style={{borderRadius: '0px'}}
-              >
-                  Register
-              </Button>
-              </form>
-              <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
-            </Paper>
-            <Snackbar
-                anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-                }}
-                open={this.state.open}
-                autoHideDuration={6000}
-                onClose={this.handleClose}
+          <CssBaseline />
+          <Paper className={classes.paper} style={{borderRadius: '0px'}}>
+            <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
+              {this.state.message}
+            </Alert>
+            <Avatar className={classes.avatar}>
+              <LockOutlinedIcon />
+            </Avatar>
+            <Typography component="h1" variant="h5">
+            Register
+            </Typography>
+            <form className={classes.form} onSubmit={this.routeChange}>
+            <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="username">Username</InputLabel>
+                <Input 
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  onChange={this.onChange} 
+                />
+            </FormControl>
+            <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input 
+                    type="password"
+                    name="password"
+                    id="password"
+                    placeholder="********"
+                    onChange={this.onChange}
+                />
+            </FormControl>
+            <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
                 style={{borderRadius: '0px'}}
-                ContentProps={{
-                'aria-describedby': 'message-id',
-                }}
-                message={<span id="message-id" className="text-light" style={{fontSize: '25px', fontFamily: 'Raleway'}}>{this.state.message}</span>}
-                action={[
-                    <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        onClick={this.handleClose}
-                    >
-                        <CloseIcon className="text-light" />
-                    </IconButton>,
-                ]}
-            />
+            >
+                Register
+            </Button>
+            </form>
+            <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
+          </Paper>
+          <Snackbar
+              anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'center',
+              }}
+              open={this.state.open}
+              autoHideDuration={6000}
+              onClose={this.handleClose}
+              style={{borderRadius: '0px'}}
+              ContentProps={{
+              'aria-describedby': 'message-id',
+              }}
+              message={<span id="message-id" className="text-light" style={{fontSize: '25px', fontFamily: 'Raleway'}}>{this.state.message}</span>}
+              action={[
+                  <IconButton
+                      key="close"
+                      aria-label="Close"
+                      color="inherit"
+                      onClick={this.handleClose}
+                  >
+                      <CloseIcon className="text-light" />
+                  </IconButton>,
+              ]}
+          />
         </main>
     );
   }

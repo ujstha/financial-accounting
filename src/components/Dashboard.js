@@ -82,7 +82,8 @@ class Dashboard extends Component {
 
   handleClick = event => {
     this.setState({
-      currentPage: Number(event.target.id)
+      currentPage: Number(event.target.id),
+      boxColor: 'red'
     });
   }
 

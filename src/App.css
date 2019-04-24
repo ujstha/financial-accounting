@@ -38,8 +38,8 @@ ul#horizontal-list {
 }
 ul#horizontal-list li {
   display: inline;
-  margin: 5px;
-  padding: 15px;
+  margin: 2px;
+  padding: 10px 15px 10px 15px;
   background-color: black;
   color: white;
 }
@@ -47,7 +47,7 @@ ul#horizontal-list li {
   background-color: rgba(0, 0, 0, 1);
   border-radius: 0px;
   margin: 5px auto;
-  padding: 5px 5px 0px 5px;
+  padding: 3px 3px 0px 3px;
 }
 .btn.btn-secondary.active:hover {
   cursor: pointer;

@@ -15,6 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { Alert } from 'reactstrap';
 
 const styles = theme => ({
   main: {
@@ -50,21 +51,28 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
       username: "",
       password: "",
-      toDashboard: false
+      toDashboard: false,
+      visible: false,
+      infoColor: '',
+      message: ''
     }
-    this.handleClick.bind(this);
+    this.handleError.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
-  handleClick = () => {
-    this.setState({ open: true });
+  handleError = () => {
+    this.setState({ 
+      visible: true,
+      infoColor: 'danger',
+      message: 'Invalid Email or Password....'
+    });
   };
-  
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+
+  onDismiss() {
+    this.setState({ visible: false });
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -86,7 +94,7 @@ class Login extends Component {
         }
       })
       .catch(err => {
-        this.handleClick();
+        this.handleError();
       });
   }
 
@@ -99,6 +107,9 @@ class Login extends Component {
       <main className={classes.main}>
         <CssBaseline />
         <Paper className={classes.paper} style={{borderRadius: '0px'}}>
+          <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
+            {this.state.message}
+          </Alert>
           <Avatar className={classes.avatar}>
             <LockOutlinedIcon />
           </Avatar>

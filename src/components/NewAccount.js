@@ -10,9 +10,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { Alert } from 'reactstrap';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
@@ -46,14 +44,13 @@ class NewAccount extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      open: false,
       message: '',
-      accountName: "",
-      alias: "",
-      tag: "",
-      descreption: "",
-      inventoryAffects: "",
-      openingBalance: "",
+      accountName: '',
+      alias: '',
+      tag: '',
+      descreption: '',
+      inventoryAffects: '',
+      openingBalance: '',
       listOfTags: [
         'bank account',
         'capital account',
@@ -77,29 +74,34 @@ class NewAccount extends Component {
         'stock in hand',
         'sundry creditors',
         'sundry debtors'
-      ]
+      ],
+      visible: false,
+      infoColor: ''
     }
     this.handleSuccess.bind(this);
     this.handleError.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   handleSuccess = () => {
     this.setState({ 
-        open: true,
-        message: 'Account was added Successfully....'
+      visible: true,
+      infoColor: 'success',
+      message: 'Account was added successful.... Redirecting to Dashboard in 3 seconds.'
     });
   };
 
   handleError = () => {
     this.setState({ 
-        open: true,
-        message: 'Something went wrong.... Please try again.'
+      visible: true,
+      infoColor: 'danger',
+      message: 'Something went wrong.... Please try again.'
     });
   };
   
-  handleClose = () => {
-    this.setState({ open: false });
-  };
+  onDismiss() {
+    this.setState({ visible: false });
+  }
 
   onChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -116,23 +118,23 @@ class NewAccount extends Component {
       "openingBalance": this.state.openingBalance
     }
     axios.post(`https://financial-report.herokuapp.com/api/accounts`, account, {
-        headers: {
-          'x-auth-token': localStorage.getItem('x-auth-token')
-        }
-      })
-      .then(res => {
-        console.log(res);
-        console.log(res.data);
-        if(res.data) {
-          this.handleSuccess();
-          setTimeout(() => {
-            document.location = "/dashboard"
-          }, 2500);
-        }  
-      })
-      .catch(err => {
-        this.handleError();
-      });
+      headers: {
+        'x-auth-token': localStorage.getItem('x-auth-token')
+      }
+    })
+    .then(res => {
+      console.log(res);
+      console.log(res.data);
+      if(res.data) {
+        this.handleSuccess();
+        setTimeout(() => {
+          document.location = "/dashboard"
+        }, 3000);
+      }  
+    })
+    .catch(err => {
+      this.handleError();
+    });
   }
 
   render() {
@@ -142,110 +144,90 @@ class NewAccount extends Component {
     const {classes} = this.props;
     return (
         <main className={classes.main}>
-            <CssBaseline />
-            <Paper className={classes.paper} style={{borderRadius: '0px'}}>
-                <Typography component="h1" variant="h5">
-                    Add New Account
-                </Typography>
-                <form className={classes.form} onSubmit={this.routeChange}>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="accountName">Account Name</InputLabel>
-                    <Input 
-                        type="text"
-                        name="accountName"
-                        id="accountName"
-                        placeholder="Account Name"
-                        onChange={this.onChange}
-                    />
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="alias">Alias Name</InputLabel>
-                    <Input 
-                        type="text"
-                        name="alias"
-                        id="alias"
-                        placeholder="Alias Name"
-                        onChange={this.onChange}
-                    />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="tag">Tag</InputLabel>
-                    <Select
-                        value={this.state.tag}
-                        onChange={this.onChange}
-                        input={<Input name="tag" id="tag" />}
-                    >
-                        {this.state.listOfTags.map((list, i) => (
-                            <MenuItem key={i} value={list}>{list}</MenuItem>
-                        ))}
-                    </Select>
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="inventoryAffects">Inventory Affects</InputLabel>
-                    <Select
-                      value={this.state.inventoryAffects}
-                      onChange={this.onChange}
-                      input={<Input name="inventoryAffects" id="inventoryAffects" />}
-                    >
-                      <MenuItem value="false">False</MenuItem>
-                      <MenuItem value="true">True</MenuItem>
-                    </Select>
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="descreption">Description</InputLabel>
-                    <Input 
-                        type="text"
-                        name="descreption"
-                        id="descreption"
-                        placeholder="Description"
-                        onChange={this.onChange}
-                    />
-                </FormControl>
-                <FormControl margin="normal" fullWidth>
-                    <InputLabel htmlFor="openingBalance">Opening Balance</InputLabel>
-                    <Input 
-                        type="text"
-                        name="openingBalance"
-                        id="openingBalance"
-                        placeholder="Opening Balance"
-                        onChange={this.onChange}
-                    />
-                </FormControl>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    style={{borderRadius: '0px'}}
+          <CssBaseline />
+          <Paper className={classes.paper} style={{borderRadius: '0px'}}>
+            <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
+              {this.state.message}
+            </Alert>
+            <Typography component="h1" variant="h5">
+                Add New Account
+            </Typography>
+            <form className={classes.form} onSubmit={this.routeChange}>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="accountName">Account Name</InputLabel>
+                <Input 
+                  type="text"
+                  name="accountName"
+                  id="accountName"
+                  placeholder="Account Name"
+                  onChange={this.onChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel htmlFor="alias">Alias Name</InputLabel>
+                <Input 
+                  type="text"
+                  name="alias"
+                  id="alias"
+                  placeholder="Alias Name"
+                  onChange={this.onChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="tag">Tag</InputLabel>
+                <Select
+                  value={this.state.tag}
+                  onChange={this.onChange}
+                  input={<Input name="tag" id="tag" />}
                 >
-                    Add
-                </Button>
-                </form>
-            </Paper>
-            <Snackbar
-                anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'center',
-                }}
-                open={this.state.open}
-                autoHideDuration={6000}
-                onClose={this.handleClose}
-                ContentProps={{
-                'aria-describedby': 'message-id',
-                }}
-                message={<span id="message-id" className="text-light" style={{fontSize: '25px', fontFamily: 'Raleway'}}>{this.state.message}</span>}
-                action={[
-                    <IconButton
-                        key="close"
-                        aria-label="Close"
-                        color="inherit"
-                        onClick={this.handleClose}
-                    >
-                        <CloseIcon className="text-light" />
-                    </IconButton>,
-                ]}
-            />
+                  {this.state.listOfTags.map((list, i) => (
+                      <MenuItem key={i} value={list}>{list}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="inventoryAffects">Inventory Affects</InputLabel>
+                <Select
+                  value={this.state.inventoryAffects}
+                  onChange={this.onChange}
+                  input={<Input name="inventoryAffects" id="inventoryAffects" />}
+                >
+                  <MenuItem value="false">False</MenuItem>
+                  <MenuItem value="true">True</MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel htmlFor="descreption">Description</InputLabel>
+                <Input 
+                  type="text"
+                  name="descreption"
+                  id="descreption"
+                  placeholder="Description"
+                  onChange={this.onChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel htmlFor="openingBalance">Opening Balance</InputLabel>
+                <Input 
+                  type="text"
+                  name="openingBalance"
+                  id="openingBalance"
+                  placeholder="Opening Balance"
+                  onChange={this.onChange}
+                />
+              </FormControl>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{borderRadius: '0px'}}
+              >
+                Add
+              </Button>
+            </form>
+          </Paper>
         </main>
     );
   }
