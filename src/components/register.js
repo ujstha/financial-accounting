@@ -15,6 +15,7 @@ import withStyles from '@material-ui/core/styles/withStyles';
 import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import { Alert } from 'reactstrap';
 
 const styles = theme => ({
   main: {
@@ -53,25 +54,34 @@ class Register extends Component {
       message: '',
       username: "",
       password: "",
-      toDashboard: false
+      toDashboard: false,
+      visible: false,
+      infoColor: ''
     }
     this.handleSuccess.bind(this);
     this.handleError.bind(this);
+    this.onDismiss = this.onDismiss.bind(this);
   }
 
   handleSuccess = () => {
     this.setState({ 
-        open: true,
-        message: 'Registration Successful.... Please sign in.'
+      visible: true,
+      infoColor: 'success',
+      message: 'Registration Successful.... Redirecting to Login Page in 3 seconds.'
     });
   };
 
   handleError = () => {
     this.setState({ 
-        open: true,
-        message: 'Registration Unsuccessful.... Please try again.'
+      visible: true,
+      infoColor: 'danger',
+      message: 'Registration Unsuccessful.... Please try again.'
     });
   };
+
+  onDismiss() {
+    this.setState({ visible: false });
+  }
   
   handleClose = () => {
     this.setState({ open: false });
@@ -95,7 +105,7 @@ class Register extends Component {
           this.handleSuccess();
           setTimeout(() => {
             document.location = "/"
-          }, 2500);
+          }, 3000);
         }  
       })
       .catch(err => {
@@ -109,45 +119,48 @@ class Register extends Component {
         <main className={classes.main}>
             <CssBaseline />
             <Paper className={classes.paper} style={{borderRadius: '0px'}}>
-                <Avatar className={classes.avatar}>
-                    <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5">
-                Register
-                </Typography>
-                <form className={classes.form} onSubmit={this.routeChange}>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="username">Username</InputLabel>
-                    <Input 
-                        type="text"
-                        name="username"
-                        id="username"
-                        placeholder="Username"
-                        onChange={this.onChange} 
-                    />
-                </FormControl>
-                <FormControl margin="normal" required fullWidth>
-                    <InputLabel htmlFor="password">Password</InputLabel>
-                    <Input 
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="********"
-                        onChange={this.onChange}
-                    />
-                </FormControl>
-                <Button
-                    type="submit"
-                    fullWidth
-                    variant="contained"
-                    color="primary"
-                    className={classes.submit}
-                    style={{borderRadius: '0px'}}
-                >
-                    Register
-                </Button>
-                </form>
-                <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
+              <Alert color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
+                {this.state.message}
+              </Alert>
+              <Avatar className={classes.avatar}>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+              Register
+              </Typography>
+              <form className={classes.form} onSubmit={this.routeChange}>
+              <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="username">Username</InputLabel>
+                  <Input 
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="Username"
+                    onChange={this.onChange} 
+                  />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <Input 
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="********"
+                      onChange={this.onChange}
+                  />
+              </FormControl>
+              <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  style={{borderRadius: '0px'}}
+              >
+                  Register
+              </Button>
+              </form>
+              <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
             </Paper>
             <Snackbar
                 anchorOrigin={{

@@ -169,14 +169,14 @@ class Dashboard extends Component {
       <div className="col-md-8 offset-md-2" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-            <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName}</Typography>
+            <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName} Account</Typography>
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}>Delete</Link></Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails style={{borderTop: '1px solid grey'}}>
             <Typography style={{fontSize: '16px'}}>
               <p>
                 <Link to={`/transaction/${acc.accountName}`} style={{textTransform: 'uppercase', textDecoration: 'none'}}>
-                  {acc.accountName}
+                  Go to Transaction
                 </Link>
               </p>
               <p className="text-capitalize"><b>Alias : </b>{acc.alias}</p>
@@ -232,7 +232,7 @@ class Dashboard extends Component {
     
     return (
       <div className={classes.root}>
-        <h1>{user.username}</h1>
+        <h1 className="text-capitalize">{user.username}</h1>
         <div id="accountsList" className="container-fluid">
           <div className="row">
             {renderAccounts}

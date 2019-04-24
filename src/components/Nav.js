@@ -116,7 +116,7 @@ export default class NavBar extends React.Component {
     )
     return (
       <div>
-        <Navbar color="dark" dark expand="md" className='fixed-top' style={{zIndex: 9999999}}>
+        <Navbar color="dark" dark expand="md" className='fixed-top'>
           <NavbarBrand href="/" style={{fontFamily: 'Srisakdi', fontStyle: 'cursive'}}>Financial</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
