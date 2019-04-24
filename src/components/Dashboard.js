@@ -12,7 +12,6 @@ import CardContent from '@material-ui/core/CardContent';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 import moment from 'moment';
-import styless from '../App.css';
 
 const styles = theme => ({
   root: {
@@ -43,7 +42,7 @@ class Dashboard extends Component {
       accounts: [],
       accList: [],
       currentPage: 1,
-      accPerPage: 1,
+      accPerPage: 2,
       lastPage: ''
     }
     //this.handleClick = this.handleClick.bind(this);
@@ -83,8 +82,7 @@ class Dashboard extends Component {
 
   handleClick = event => {
     this.setState({
-      currentPage: Number(event.target.id),
-      boxColor: 'red'
+      currentPage: Number(event.target.id)
     });
   }
 
@@ -168,7 +166,7 @@ class Dashboard extends Component {
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
-      <div id="accountsList" className="col-md-8 offset-md-2" key={i}>
+      <div className="col-md-8 offset-md-2 mt-3" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName} Account</Typography>
@@ -222,7 +220,7 @@ class Dashboard extends Component {
 
     const renderPageNumbers = pageNumbers.map(number => {
       let classes = this.state.currentPage === number ? 'active' : '';
-      if (number === 1 || (number >= this.state.currentPage - 1 && number <= this.state.currentPage + 1)) {
+      if ((number >= this.state.currentPage - 1 && number <= this.state.currentPage + 1)) {
         return (
           <li
             key={number}
@@ -239,9 +237,11 @@ class Dashboard extends Component {
     return (
       <div className={classes.root}>
         <h1 className="text-capitalize">{user.username}</h1>
-        <div className="container-fluid">
-          <div className="row">
-            {renderAccounts}
+        <div id="accountsList" className="container-fluid">
+          <div>
+            <div className="row">
+              {renderAccounts}
+            </div>
           </div>
         </div>
         {(renderPageNumbers.length <= 1) ? '' : 
