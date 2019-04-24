@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 import moment from 'moment';
+import styless from '../App.css';
 
 const styles = theme => ({
   root: {
@@ -220,12 +221,14 @@ class Dashboard extends Component {
     }
 
     const renderPageNumbers = pageNumbers.map(number => {
-      if (number === 1 || number === this.state.lastPage || (number >= this.state.currentPage - 2 && number <= this.state.currentPage + 2)) {
+      let classes = this.state.currentPage === number ? 'active' : '';
+      if (number === 1 || (number >= this.state.currentPage - 1 && number <= this.state.currentPage + 1)) {
         return (
           <li
             key={number}
             id={number}
             onClick={this.handleClick}
+            className={classes}
           >
             {number}
           </li>
