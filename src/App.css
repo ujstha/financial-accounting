@@ -35,6 +35,7 @@ ul#horizontal-list {
   list-style: none;
   width: 100%;
   max-width: 100%;
+  overflow: auto;
 }
 ul#horizontal-list li {
   display: inline;
@@ -46,7 +47,7 @@ ul#horizontal-list li {
 .btn.btn-secondary {
   background-color: rgba(0, 0, 0, 1);
   border-radius: 0px;
-  margin: 5px auto;
+  margin: 10px auto;
   padding: 3px 3px 0px 3px;
 }
 .btn.btn-secondary.active:hover {

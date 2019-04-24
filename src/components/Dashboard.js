@@ -167,7 +167,7 @@ class Dashboard extends Component {
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
-      <div className="col-md-8 offset-md-2" key={i}>
+      <div id="accountsList" className="col-md-8 offset-md-2" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName} Account</Typography>
@@ -220,35 +220,41 @@ class Dashboard extends Component {
     }
 
     const renderPageNumbers = pageNumbers.map(number => {
-      return (
-        <li
-          key={number}
-          id={number}
-          onClick={this.handleClick}
-        >
-          {number}
-        </li>
-      );
+      if (number === 1 || number === this.state.lastPage || (number >= this.state.currentPage - 2 && number <= this.state.currentPage + 2)) {
+        return (
+          <li
+            key={number}
+            id={number}
+            onClick={this.handleClick}
+          >
+            {number}
+          </li>
+        );
+      }
     });
     
     return (
       <div className={classes.root}>
         <h1 className="text-capitalize">{user.username}</h1>
-        <div id="accountsList" className="container-fluid">
+        <div className="container-fluid">
           <div className="row">
             {renderAccounts}
           </div>
         </div>
-        {(renderPageNumbers.length === 0) ? '' : <div className="row"><ul className="col-md-12 text-center">
-            {this.state.currentPage} / {this.state.lastPage = renderPageNumbers.length}
-          </ul>
-          <ul id="horizontal-list" className="col-md-12 text-center">
-            {(currentPage > 2) ? first : firstDisable}
-            {(currentPage > 1) ? previous : previousDisable}
-            {renderPageNumbers}
-            {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : nextDisable}
-            {((currentPage < renderPageNumbers.length) && (currentPage < (renderPageNumbers.length - 1))) ? last : lastDisable}
-          </ul></div>}       
+        {(renderPageNumbers.length <= 1) ? '' : 
+          <div className="row">
+            <ul className="col-md-12 text-center">
+              Page {this.state.currentPage} of {this.state.lastPage = renderPageNumbers.length}
+            </ul>
+            <ul id="horizontal-list" className="col-md-12 text-center">
+              {(currentPage > 2) ? first : firstDisable}
+              {(currentPage > 1) ? previous : previousDisable}
+              {renderPageNumbers}
+              {((currentPage >= 1) && (currentPage < renderPageNumbers.length)) ? next : nextDisable}
+              {(currentPage < renderPageNumbers.length) ? last : lastDisable}
+            </ul>
+          </div>
+        }       
       </div>
     );
   }
