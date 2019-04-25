@@ -80,6 +80,10 @@ export default class NavBar extends React.Component {
     document.location = "/newAccount";
   }
 
+  dashboard() {
+    document.location = "/dashboard";
+  }
+
   render() {
     const { anchorEl } = this.state;
     const activeStyle = { color: 'white', backgroundColor: 'grey' };
@@ -87,41 +91,53 @@ export default class NavBar extends React.Component {
     const loginNav= (
       <div>
         {menuItems.map((menuItem, i) => 
-          <Link 
-            key={i}
-            style={this.state.active === menuItem ? activeStyle : {}} 
-            onClick={this.changeLink.bind(this, menuItem)}
-            to={menuItem}
-          > 
-            {menuItem === '/' ? menuItem = 'Login' : menuItem = 'Register'}
-          </Link>
+          <Nav className="ml-auto" navbar key={i}>
+            <NavItem className='text-uppercase'>
+              <Link 
+                style={this.state.active === menuItem ? activeStyle : {}} 
+                onClick={this.changeLink.bind(this, menuItem)}
+                to={menuItem}
+              > 
+                {menuItem === '/' ? menuItem = 'Login' : menuItem = 'Register'}
+              </Link>
+            </NavItem>
+          </Nav>
          )}
       </div>
     )
-
+   
     const userNav = (
-      <div>
-        <IconButton className="text-light mr-2" onClick={this.newAccount}>
-          <AddIcon />
-        </IconButton>
-        <IconButton
-          onClick={this.handleClick}
-          className="text-light"
-        >
-          <AccountCircle />
-        </IconButton>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-        >
-          <MenuItem>Welcome &nbsp;<b>{user.username}!</b></MenuItem>
-          <Divider />
-          <MenuItem>My account</MenuItem>
-          <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
-        </Menu>
-      </div>
+      <Nav className="ml-auto" navbar>
+        <NavItem className='text-uppercase'>
+          <IconButton 
+            className="text-light mr-2" 
+            onClick={this.newAccount} 
+            style={window.location.pathname === '/newAccount' ? activeStyle : {}}>
+            <AddIcon />
+          </IconButton>
+        </NavItem>
+        <NavItem className='text-uppercase'>
+          <IconButton
+            onClick={this.handleClick}
+            className="text-light"
+            style={window.location.pathname === '/dashboard' ? activeStyle : {}}
+          >
+            <AccountCircle />
+          </IconButton>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem>Welcome &nbsp;<b>{user.username}!</b></MenuItem>
+            <Divider />
+            <MenuItem onClick={this.dashboard.bind(this)}>Dashboard</MenuItem>
+            <MenuItem>My account</MenuItem>
+            <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
+          </Menu>
+        </NavItem>
+      </Nav>
     )
     return (
       <div>
@@ -129,11 +145,7 @@ export default class NavBar extends React.Component {
           <NavbarBrand href="/" style={{fontFamily: 'Srisakdi', fontStyle: 'cursive'}}>Financial</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
-            <Nav className="ml-auto" navbar>
-              <NavItem className='text-uppercase'>
-                {localStorage.getItem('x-auth-token') ? userNav : loginNav}
-              </NavItem>
-            </Nav>
+            {localStorage.getItem('x-auth-token') ? userNav : loginNav}
           </Collapse>
         </Navbar>
       </div>

@@ -176,7 +176,7 @@ class Dashboard extends Component {
               </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails style={{borderTop: '1px solid grey'}}>
-            <Typography style={{fontSize: '16px'}}>
+            <Typography style={{fontSize: '16px'}} component={'span'}>
               <p>
                 <Link to={`/transaction/${acc.accountName}`} style={{textTransform: 'uppercase', textDecoration: 'none'}}>
                   Go to Transaction
@@ -190,7 +190,7 @@ class Dashboard extends Component {
                   <div className="col-md-3 my-3" key={i}>
                     <Card className={classes.card} style={{borderRadius: '0px'}}>
                       <CardContent>
-                        <Typography style={{fontSize: '16px'}}>
+                        <Typography style={{fontSize: '16px'}} component={'span'}>
                           <p><b>Balance : </b>{accHistory.balance}</p>
                           <p><b>Date : </b>{moment(accHistory.date).format('MMM DD, YYYY')}</p>
                         </Typography>
