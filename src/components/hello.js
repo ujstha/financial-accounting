@@ -3,8 +3,11 @@ import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand
+  NavbarBrand,
+  Nav,
+  NavItem
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -12,6 +15,11 @@ import IconButton from '@material-ui/core/IconButton';
 import AddIcon from '@material-ui/icons/Add';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
+
+const menuItems = [
+  '/',
+  '/register',
+];
 
 export default class NavBar extends React.Component {
   constructor(props) {
@@ -21,7 +29,8 @@ export default class NavBar extends React.Component {
     this.state = {
       anchorEl: null,
       isOpen: false,
-      users: ''
+      users: '',
+      active: '/'
     };
   }
 
@@ -55,6 +64,10 @@ export default class NavBar extends React.Component {
     }
   }
 
+  changeLink(menuItem) { 
+    this.setState({ active: menuItem });
+  }
+  
   handleClick = event => {
     this.setState({ anchorEl: event.currentTarget });
   };
@@ -66,46 +79,47 @@ export default class NavBar extends React.Component {
   newAccount() {
     document.location = "/newAccount";
   }
+
   dashboard() {
     document.location = "/dashboard";
   }
-  
+
   render() {
     const { anchorEl } = this.state;
     const activeStyle = { color: 'white', backgroundColor: 'grey' };
     let user = this.state.users;
     const loginNav= (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <a 
-            href="/"
-            style={window.location.pathname === '/' ? activeStyle : {}}
-          >
-            Login
-          </a>
-        </li>
-        <li className="nav-item">
-          <a 
-            href="/register"
-            style={window.location.pathname === '/register' ? activeStyle : {}}
-          >
-            Register
-          </a>
-        </li>
-      </ul>
+      <div>
+        <Nav className="ml-auto" navbar >
+            <NavItem className='text-uppercase'>
+        {menuItems.map((menuItem, i) => 
+          <IconButton key={i}>
+              <Link 
+                className=""
+                style={this.state.active === menuItem ? activeStyle : {}} 
+                onClick={this.changeLink.bind(this, menuItem)}
+                to={menuItem}
+              > 
+                {menuItem === '/' ? menuItem = 'Login' : menuItem = 'Register'}
+              </Link>
+            </IconButton>
+         )}
+         </NavItem>
+          </Nav>
+      </div>
     )
-
+   
     const userNav = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
+      <Nav className="ml-auto" navbar>
+        <NavItem className='text-uppercase'>
           <IconButton 
             className="text-light mr-2" 
             onClick={this.newAccount} 
             style={window.location.pathname === '/newAccount' ? activeStyle : {}}>
             <AddIcon />
           </IconButton>
-        </li>
-        <li className="nav-item">
+        </NavItem>
+        <NavItem className='text-uppercase'>
           <IconButton
             onClick={this.handleClick}
             className="text-light"
@@ -113,20 +127,20 @@ export default class NavBar extends React.Component {
           >
             <AccountCircle />
           </IconButton>
-        </li>
-        <Menu
-          id="simple-menu"
-          anchorEl={anchorEl}
-          open={Boolean(anchorEl)}
-          onClose={this.handleClose}
-        >
-          <MenuItem>Welcome &nbsp;<b>{user.username}!</b></MenuItem>
-          <Divider />
-          <MenuItem onClick={this.dashboard.bind(this)}>Dashboard</MenuItem>
-          <MenuItem>My account</MenuItem>
-          <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
-        </Menu>
-      </ul>
+          <Menu
+            id="simple-menu"
+            anchorEl={anchorEl}
+            open={Boolean(anchorEl)}
+            onClose={this.handleClose}
+          >
+            <MenuItem>Welcome &nbsp;<b>{user.username}!</b></MenuItem>
+            <Divider />
+            <MenuItem onClick={this.dashboard.bind(this)}>Dashboard</MenuItem>
+            <MenuItem>My account</MenuItem>
+            <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
+          </Menu>
+        </NavItem>
+      </Nav>
     )
     return (
       <div>

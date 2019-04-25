@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import axios from 'axios';
 import PropTypes from 'prop-types';
 import Avatar from '@material-ui/core/Avatar';
@@ -156,7 +156,7 @@ class Register extends Component {
                   Register
               </Button>
             </form>
-            <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
+            <p className="mt-4">Already have an account? <a href="/" style={{textDecoration: 'none'}}>Sign In</a></p>
           </Paper>
         </main>
     );
