@@ -16,6 +16,11 @@ import AddIcon from '@material-ui/icons/Add';
 import Divider from '@material-ui/core/Divider';
 import axios from 'axios';
 
+const menuItems = [
+  '/',
+  '/register',
+];
+
 export default class NavBar extends React.Component {
   constructor(props) {
     super(props);
@@ -24,23 +29,26 @@ export default class NavBar extends React.Component {
     this.state = {
       anchorEl: null,
       isOpen: false,
-      users: ''
+      users: '',
+      active: '/'
     };
   }
 
   componentDidMount() {
-    axios.get(`https://financial-report.herokuapp.com/api/user`, {
-      headers: {
-        'x-auth-token': localStorage.getItem('x-auth-token')
-      }
-    })
-    .then(res=> {
-      console.log('hell',res.data);
-      let users = res.data;
-      this.setState({
-          users: users
-      });
-    })
+    if(localStorage.getItem('x-auth-token')) {
+      axios.get(`https://financial-report.herokuapp.com/api/user`, {
+        headers: {
+          'x-auth-token': localStorage.getItem('x-auth-token')
+        }
+      })
+      .then(res=> {
+        console.log('hell',res.data);
+        let users = res.data;
+        this.setState({
+            users: users
+        });
+      })
+    }
   }
 
   toggle() {
@@ -54,6 +62,10 @@ export default class NavBar extends React.Component {
     if(!(localStorage.getItem('x-auth-token'))) {
       document.location="/";
     }
+  }
+
+  changeLink(menuItem) { 
+    this.setState({ active: menuItem });
   }
   
   handleClick = event => {
@@ -70,37 +82,34 @@ export default class NavBar extends React.Component {
 
   render() {
     const { anchorEl } = this.state;
+    const activeStyle = { color: 'white', backgroundColor: 'grey' };
     let user = this.state.users;
     const loginNav= (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <Link to="/" className="nav-link">
-            Login
+      <div>
+        {menuItems.map((menuItem, i) => 
+          <Link 
+            key={i}
+            style={this.state.active === menuItem ? activeStyle : {}} 
+            onClick={this.changeLink.bind(this, menuItem)}
+            to={menuItem}
+          > 
+            {menuItem === '/' ? menuItem = 'Login' : menuItem = 'Register'}
           </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/register" className="nav-link">
-            Register
-          </Link>
-        </li>
-      </ul>
+         )}
+      </div>
     )
 
     const userNav = (
-      <ul className="navbar-nav">
-        <li className="nav-item">
-          <IconButton className="text-light mr-2" onClick={this.newAccount}>
-           <AddIcon />
-          </IconButton>
-        </li>
-        <li className="nav-item">
-          <IconButton
-            onClick={this.handleClick}
-            className="text-light"
-          >
-            <AccountCircle />
-          </IconButton>
-        </li>
+      <div>
+        <IconButton className="text-light mr-2" onClick={this.newAccount}>
+          <AddIcon />
+        </IconButton>
+        <IconButton
+          onClick={this.handleClick}
+          className="text-light"
+        >
+          <AccountCircle />
+        </IconButton>
         <Menu
           id="simple-menu"
           anchorEl={anchorEl}
@@ -112,7 +121,7 @@ export default class NavBar extends React.Component {
           <MenuItem>My account</MenuItem>
           <MenuItem onClick={this.logOut.bind(this)}>Logout</MenuItem>
         </Menu>
-      </ul>
+      </div>
     )
     return (
       <div>

@@ -12,9 +12,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import { Alert } from 'reactstrap';
 
 const styles = theme => ({
@@ -58,17 +55,8 @@ class Login extends Component {
       infoColor: '',
       message: ''
     }
-    this.handleError.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
   }
-
-  handleError = () => {
-    this.setState({ 
-      visible: true,
-      infoColor: 'danger',
-      message: 'Invalid Email or Password....'
-    });
-  };
 
   onDismiss() {
     this.setState({ visible: false });
@@ -94,7 +82,12 @@ class Login extends Component {
         }
       })
       .catch(err => {
-        this.handleError();
+        this.setState({ 
+          visible: true,
+          infoColor: 'danger',
+          message: err.response.data
+        });
+        console.log(err.response);
       });
   }
 
@@ -150,30 +143,6 @@ class Login extends Component {
           </form>
           <p className="mt-4">Don't have an account? <Link to="/register" style={{textDecoration: 'none'}}>Register</Link></p>
         </Paper>
-        <Snackbar
-          anchorOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-          open={this.state.open}
-          autoHideDuration={6000}
-          onClose={this.handleClose}
-          style={{borderRadius: '0px'}}
-          ContentProps={{
-            'aria-describedby': 'message-id',
-          }}
-          message={<span id="message-id" className="text-warning" style={{fontSize: '25px', fontFamily: 'Raleway'}}>Invalid username or password</span>}
-          action={[
-            <IconButton
-              key="close"
-              aria-label="Close"
-              color="inherit"
-              onClick={this.handleClose}
-            >
-              <CloseIcon className="text-warning" />
-            </IconButton>,
-          ]}
-        />
       </main>
     );
   }

@@ -12,9 +12,6 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import withStyles from '@material-ui/core/styles/withStyles';
-import Snackbar from '@material-ui/core/Snackbar';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
 import { Alert } from 'reactstrap';
 
 const styles = theme => ({
@@ -105,6 +102,7 @@ class Register extends Component {
       })
       .catch(err => {
         this.handleError();
+        console.log(err.data);
       });
   }
 
@@ -127,63 +125,39 @@ class Register extends Component {
             Register
             </Typography>
             <form className={classes.form} onSubmit={this.routeChange}>
-            <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="username">Username</InputLabel>
-                <Input 
-                  type="text"
-                  name="username"
-                  id="username"
-                  placeholder="Username"
-                  onChange={this.onChange} 
-                />
-            </FormControl>
-            <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="password">Password</InputLabel>
-                <Input 
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="********"
-                    onChange={this.onChange}
-                />
-            </FormControl>
-            <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                style={{borderRadius: '0px'}}
-            >
-                Register
-            </Button>
+              <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="username">Username</InputLabel>
+                  <Input 
+                    type="text"
+                    name="username"
+                    id="username"
+                    placeholder="Username"
+                    onChange={this.onChange} 
+                  />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                  <InputLabel htmlFor="password">Password</InputLabel>
+                  <Input 
+                      type="password"
+                      name="password"
+                      id="password"
+                      placeholder="********"
+                      onChange={this.onChange}
+                  />
+              </FormControl>
+              <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  style={{borderRadius: '0px'}}
+              >
+                  Register
+              </Button>
             </form>
             <p className="mt-4">Already have an account? <Link to="/" style={{textDecoration: 'none'}}>Sign In</Link></p>
           </Paper>
-          <Snackbar
-              anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'center',
-              }}
-              open={this.state.open}
-              autoHideDuration={6000}
-              onClose={this.handleClose}
-              style={{borderRadius: '0px'}}
-              ContentProps={{
-              'aria-describedby': 'message-id',
-              }}
-              message={<span id="message-id" className="text-light" style={{fontSize: '25px', fontFamily: 'Raleway'}}>{this.state.message}</span>}
-              action={[
-                  <IconButton
-                      key="close"
-                      aria-label="Close"
-                      color="inherit"
-                      onClick={this.handleClose}
-                  >
-                      <CloseIcon className="text-light" />
-                  </IconButton>,
-              ]}
-          />
         </main>
     );
   }

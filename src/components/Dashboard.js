@@ -12,6 +12,7 @@ import CardContent from '@material-ui/core/CardContent';
 import { Button } from 'reactstrap';
 import axios from 'axios';
 import moment from 'moment';
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const styles = theme => ({
   root: {
@@ -22,7 +23,7 @@ const styles = theme => ({
     fontWeight: theme.typography.fontWeightRegular
   },
   card: {
-    minWidth: 275,
+    minWidth: 200,
     backgroundColor: 'lightgrey',
     color: 'light'
   },
@@ -169,8 +170,10 @@ class Dashboard extends Component {
       <div className="col-md-8 offset-md-2 mt-3" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-            <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>{acc.accountName} Account</Typography>
-            <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}>Delete</Link></Typography>
+            <Typography className={classes.heading} style={{textTransform: 'uppercase'}} noWrap>{acc.accountName} Account</Typography>
+            <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>
+              &nbsp;<Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}><DeleteIcon /></Link>
+              </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails style={{borderTop: '1px solid grey'}}>
             <Typography style={{fontSize: '16px'}}>
@@ -184,7 +187,7 @@ class Dashboard extends Component {
               <b>Closing Balance History</b>
               <div className="row">
                 {acc.closingBalanceHistory.map((accHistory, i) => (
-                  <div className="col-md-4 my-3" key={i}>
+                  <div className="col-md-3 my-3" key={i}>
                     <Card className={classes.card} style={{borderRadius: '0px'}}>
                       <CardContent>
                         <Typography style={{fontSize: '16px'}}>
@@ -218,6 +221,7 @@ class Dashboard extends Component {
       pageNumbers.push(i);
     }
 
+    // eslint-disable-next-line array-callback-return
     const renderPageNumbers = pageNumbers.map(number => {
       let classes = this.state.currentPage === number ? 'active' : '';
       if ((number >= this.state.currentPage - 1 && number <= this.state.currentPage + 1)) {
@@ -245,6 +249,7 @@ class Dashboard extends Component {
         {(renderPageNumbers.length <= 1) ? '' : 
           <div className="row">
             <ul className="col-md-12 text-center">
+              {/*eslint-disable-next-line react/no-direct-mutation-state*/}
               Page {this.state.currentPage} of {this.state.lastPage = renderPageNumbers.length}
             </ul>
             <ul id="horizontal-list" className="col-md-12 text-center">
