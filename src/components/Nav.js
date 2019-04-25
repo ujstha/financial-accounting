@@ -72,13 +72,14 @@ export default class NavBar extends React.Component {
   
   render() {
     const { anchorEl } = this.state;
-    const activeStyle = { color: 'white', backgroundColor: 'grey' };
+    const activeStyle = { color: 'white', backgroundColor: '#7B1FA2' };
     let user = this.state.users;
     const loginNav= (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
           <a 
             href="/"
+            className=""
             style={window.location.pathname === '/' ? activeStyle : {}}
           >
             Login
@@ -130,8 +131,8 @@ export default class NavBar extends React.Component {
     )
     return (
       <div>
-        <Navbar color="dark" dark expand="md" className='fixed-top'>
-          <NavbarBrand href="/" style={{fontFamily: 'Srisakdi', fontStyle: 'cursive'}}>Financial</NavbarBrand>
+        <Navbar style={{backgroundColor: '#6A1B9A'}} dark expand="md" className='fixed-top'>
+          <NavbarBrand href="/" style={{fontFamily: 'Srisakdi', fontStyle: 'cursive', color: 'white'}}>Financial</NavbarBrand>
           <NavbarToggler onClick={this.toggle} />
           <Collapse isOpen={this.state.isOpen} navbar>
             {localStorage.getItem('x-auth-token') ? userNav : loginNav}
