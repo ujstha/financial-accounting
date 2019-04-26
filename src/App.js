@@ -15,7 +15,13 @@ import { deepPurple } from '@material-ui/core/colors';
 
 const theme = createMuiTheme({
   palette: {
-    primary: deepPurple
+    primary: deepPurple,
+    background: {
+      "paper": '#fafafa'
+    },
+    color: {
+      "paper": 'white'
+    }
   },
   typography: {
     useNextVariants: true,

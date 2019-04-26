@@ -8,40 +8,40 @@
   -webkit-box-shadow: 0 8px 6px -6px #999;
   -moz-box-shadow: 0 8px 6px -6px #999;
   box-shadow: 0 8px 6px -6px #999;
-  margin-bottom: 100px;
   /* the rest of your styling */
 }
 .MuiButtonBase-root-7.MuiIconButton-root-1 {
   padding: 5px;
 }
-ul.navbar-nav .nav-item a {
+ul.navbar-nav a.nav-link {
   text-transform: uppercase;
   color: hotpink;
-  padding: 6px;
+  margin: 0 5px 0 0;
+  padding: 5px;
 }
-.nav-item {
-  margin: 5px 5px 5px 0px;
+ul.navbar-nav {
+  padding: 0;
+  margin: 0;
 }
-.nav-item a:hover {
+a.nav-link:hover, div.nav-link:hover {
   text-decoration: none;
   color: white;
+  background-color: #7B1FA2;
+  cursor: pointer;
 }
 #accountsList {
   height: 520px;
   min-height: 550px;
   max-height: 520px;
   overflow: auto;
-  max-width: 100%;
+  width: 100%;
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#menu-outer {
-  text-align: center;
-  margin-top: 2%;
-  max-width: 100%;
-  overflow: hidden;
+i.material-icons {
+  display: inline-flex;
+  vertical-align: middle;
 }
-
 ul#horizontal-list {
 	min-width: 100%;
   list-style: none;
@@ -73,6 +73,9 @@ ul#horizontal-list li.active {
   background-color: rgba(0,0,0,.6);
   color: white;
   border: 2px solid black;
+}
+.MuiTypography-root-59.MuiTypography-body2-67 {
+  width: 100%;
 }
 @import "~slick-carousel/slick/slick.css";
 @import "~slick-carousel/slick/slick-theme.css";

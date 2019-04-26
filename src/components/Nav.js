@@ -75,18 +75,17 @@ export default class NavBar extends React.Component {
     const activeStyle = { color: 'white', backgroundColor: '#7B1FA2' };
     let user = this.state.users;
     const loginNav= (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <a 
+      <ul className="navbar-nav nav ml-auto">
+        <li>
+          <a className="nav-link"
             href="/"
-            className=""
             style={window.location.pathname === '/' ? activeStyle : {}}
           >
             Login
           </a>
         </li>
-        <li className="nav-item">
-          <a 
+        <li>
+          <a className="nav-link"
             href="/register"
             style={window.location.pathname === '/register' ? activeStyle : {}}
           >
@@ -97,23 +96,24 @@ export default class NavBar extends React.Component {
     )
 
     const userNav = (
-      <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <IconButton 
-            className="text-light mr-2" 
+      <ul className="navbar-nav nav ml-auto">
+        <li className="nav-item" style={window.location.pathname === '/newAccount' ? activeStyle : {}}>
+          <a 
+            href="#/"
+            className="nav-link" 
             onClick={this.newAccount} 
-            style={window.location.pathname === '/newAccount' ? activeStyle : {}}>
-            <AddIcon />
-          </IconButton>
-        </li>
-        <li className="nav-item">
-          <IconButton
-            onClick={this.handleClick}
-            className="text-light"
-            style={window.location.pathname === '/dashboard' ? activeStyle : {}}
           >
-            <AccountCircle />
-          </IconButton>
+            <AddIcon /> Add New
+          </a>
+        </li>
+        <li style={window.location.pathname === '/dashboard' ? activeStyle : {}}>
+          <a
+            href="#/"
+            className="nav-link"
+            onClick={this.handleClick}
+          >
+            <AccountCircle /> Ujwal
+          </a>
         </li>
         <Menu
           id="simple-menu"
