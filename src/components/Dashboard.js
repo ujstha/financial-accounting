@@ -167,13 +167,13 @@ class Dashboard extends Component {
     )
 
     const renderAccounts = currentAccounts.map((acc, i) => (
-      <div className="col-md-8 offset-md-2 mt-3" key={i}>
+      <div className="col-lg-8 offset-lg-2 col-md-12 mt-3" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}} noWrap>{acc.accountName} Account</Typography>
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>
-              &nbsp;<Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}><DeleteIcon /></Link>
-              </Typography>
+              <Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}><DeleteIcon /></Link>
+            </Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails style={{borderTop: '1px solid grey'}}>
             <Typography style={{fontSize: '16px'}} component={'span'}>
