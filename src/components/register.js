@@ -48,6 +48,7 @@ class Register extends Component {
     super(props)
     this.state = {
       message: '',
+      name: '',
       username: '',
       password: '',
       toDashboard: false,
@@ -86,6 +87,7 @@ class Register extends Component {
   routeChange = (event) => {
     event.preventDefault();
     const user = {
+      "name": this.state.name,
       "username": this.state.username,
       "password": this.state.password
     }
@@ -126,34 +128,44 @@ class Register extends Component {
             </Typography>
             <form className={classes.form} onSubmit={this.routeChange}>
               <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="username">Username</InputLabel>
-                  <Input 
-                    type="text"
-                    name="username"
-                    id="username"
-                    placeholder="Username"
-                    onChange={this.onChange} 
-                  />
+                <InputLabel htmlFor="name">Full Name</InputLabel>
+                <Input 
+                  type="text"
+                  name="name"
+                  id="name"
+                  placeholder="Full Name"
+                  onChange={this.onChange} 
+                />
               </FormControl>
               <FormControl margin="normal" required fullWidth>
-                  <InputLabel htmlFor="password">Password</InputLabel>
-                  <Input 
-                      type="password"
-                      name="password"
-                      id="password"
-                      placeholder="********"
-                      onChange={this.onChange}
-                  />
+                <InputLabel htmlFor="username">Username</InputLabel>
+                <Input 
+                  type="text"
+                  name="username"
+                  id="username"
+                  placeholder="Username"
+                  onChange={this.onChange} 
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="password">Password</InputLabel>
+                <Input 
+                  type="password"
+                  name="password"
+                  id="password"
+                  placeholder="********"
+                  onChange={this.onChange}
+                />
               </FormControl>
               <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  color="primary"
-                  className={classes.submit}
-                  style={{borderRadius: '0px'}}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                className={classes.submit}
+                style={{borderRadius: '0px'}}
               >
-                  Register
+                Register
               </Button>
             </form>
             <p className="mt-4">Already have an account? <a href="/" style={{textDecoration: 'none'}}>Sign In</a></p>

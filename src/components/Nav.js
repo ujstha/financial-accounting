@@ -62,12 +62,6 @@ export default class NavBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
-  newAccount() {
-    document.location = "/newAccount";
-  }
-  newTransaction() {
-    document.location = "/newTransaction";
-  }
   dashboard() {
     document.location = "/dashboard";
   }
@@ -99,29 +93,30 @@ export default class NavBar extends React.Component {
 
     const userNav = (
       <ul className="navbar-nav nav ml-auto">
-        <li className="nav-item" style={window.location.pathname === '/newAccount' ? activeStyle : {}}>
+        <li>
           <a 
-            href="#/"
+            href="/newAccount"
             className="nav-link" 
-            onClick={this.newAccount} 
+            style={window.location.pathname === '/newAccount' ? activeStyle : {}}
           >
             <AddIcon /> New Account
           </a>
         </li>
-        <li className="nav-item" style={window.location.pathname === '/newTransaction' ? activeStyle : {}}>
+        <li>
           <a 
-            href="#/"
+            href="/newTransaction"
             className="nav-link" 
-            onClick={this.newTransaction} 
+            style={window.location.pathname === '/newTransaction' ? activeStyle : {}}
           >
             <AddIcon /> New Transaction
           </a>
         </li>
-        <li style={window.location.pathname === '/dashboard' ? activeStyle : {}}>
+        <li>
           <a
             href="#/"
             className="nav-link"
             onClick={this.handleClick}
+            style={window.location.pathname === '/dashboard' ? activeStyle : {}}
           >
             <AccountCircle /> Ujwal
           </a>

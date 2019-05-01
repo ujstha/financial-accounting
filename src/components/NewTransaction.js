@@ -121,6 +121,7 @@ class NewTransaction extends Component {
           document.location = "/dashboard"
         }, 3000);
       }  
+      console.log(res.data)
     })
     .catch(err => {
       this.handleError();
