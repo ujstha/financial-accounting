@@ -65,13 +65,16 @@ export default class NavBar extends React.Component {
   newAccount() {
     document.location = "/newAccount";
   }
+  newTransaction() {
+    document.location = "/newTransaction";
+  }
   dashboard() {
     document.location = "/dashboard";
   }
   
   render() {
     const { anchorEl } = this.state;
-    const activeStyle = { color: 'white', backgroundColor: '#7B1FA2' };
+    const activeStyle = { color: 'white', backgroundColor: 'rgba(0,0,0,.4)' };
     let user = this.state.users;
     const loginNav= (
       <ul className="navbar-nav nav ml-auto">
@@ -102,7 +105,16 @@ export default class NavBar extends React.Component {
             className="nav-link" 
             onClick={this.newAccount} 
           >
-            <AddIcon /> Add New
+            <AddIcon /> New Account
+          </a>
+        </li>
+        <li className="nav-item" style={window.location.pathname === '/newTransaction' ? activeStyle : {}}>
+          <a 
+            href="#/"
+            className="nav-link" 
+            onClick={this.newTransaction} 
+          >
+            <AddIcon /> New Transaction
           </a>
         </li>
         <li style={window.location.pathname === '/dashboard' ? activeStyle : {}}>

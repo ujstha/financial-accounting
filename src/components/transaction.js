@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { Redirect } from 'react-router-dom';
+import moment from 'moment';
 
 class Transaction extends Component {
     constructor(){
@@ -36,6 +37,7 @@ class Transaction extends Component {
                 <p>Credit Account : {transaction.creditAccount}</p>
                 <p>Description : {transaction.descreption}</p>
                 <p>Amount : {transaction.amount}</p>
+                <p>Date : {moment(transaction.date).format('MMM DD, YYYY')}</p>
             </div>
         ));
         return (

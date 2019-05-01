@@ -45,49 +45,42 @@ class NewTransaction extends Component {
     super(props)
     this.state = {
       message: '',
-      accountName: '',
-      alias: '',
-      tag: '',
+      date: '2017-01-01',
+      debitAccount: '',
+      creditAccount: '',
+      amount: '',
       descreption: '',
-      inventoryAffects: '',
-      openingBalance: '',
-      listOfTags: [
-        'bank account',
-        'capital account',
-        'cash in hand',
-        'current liability',
-        'current assets',
-        'deposits (assets)',
-        'direct expenses',
-        'direct incomes',
-        'duties and tax',
-        'fixed assets',
-        'indirect expenses',
-        'indirect incomes',
-        'investment',
-        'loan (liability)',
-        'loan (assets)',
-        'provisions',
-        'reserves and surplus',
-        'sales account',
-        'secured loan',
-        'stock in hand',
-        'sundry creditors',
-        'sundry debtors'
-      ],
       visible: false,
-      infoColor: ''
+      infoColor: '',
+      accList: [],
     }
     this.handleSuccess.bind(this);
     this.handleError.bind(this);
     this.onDismiss = this.onDismiss.bind(this);
   }
 
+  componentDidMount(){
+    const token = localStorage.getItem('x-auth-token');
+
+    axios.get(`https://financial-report.herokuapp.com/api/accounts`, {
+      headers: {
+        'x-auth-token': token
+      }
+    })
+    .then(res=> {
+      let accList = res.data;
+      this.setState({
+          accList: accList
+      });
+    })
+    .catch(err => console.log(err));
+  }
+
   handleSuccess = () => {
     this.setState({ 
       visible: true,
       infoColor: 'success',
-      message: 'Account was added successful.... Redirecting to Dashboard in 3 seconds.'
+      message: 'Transaction was added successful.... Redirecting to Dashboard in 3 seconds.'
     });
   };
 
@@ -107,24 +100,21 @@ class NewTransaction extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
-  routeChange = (event) => {
+  onSubmit = (event) => {
     event.preventDefault();
-    const account = {
-      "accountName": this.state.accountName,
-      "alias": this.state.alias,
-      "tag": this.state.tag,
-      "inventoryAffects": this.state.inventoryAffects,
-      "descreption": this.state.descreption,
-      "openingBalance": this.state.openingBalance
+    const transaction = {
+      "debitAccount": this.state.debitAccount,
+      "creditAccount": this.state.creditAccount,
+      "amount": this.state.amount,
+      "date": this.state.date,
+      "descreption": this.state.descreption
     }
-    axios.post(`https://financial-report.herokuapp.com/api/accounts`, account, {
+    axios.post(`https://financial-report.herokuapp.com/api/transactions`, transaction, {
       headers: {
         'x-auth-token': localStorage.getItem('x-auth-token')
       }
     })
     .then(res => {
-      console.log(res);
-      console.log(res.data);
       if(res.data) {
         this.handleSuccess();
         setTimeout(() => {
@@ -140,7 +130,7 @@ class NewTransaction extends Component {
   render() {
     if(!(localStorage.getItem('x-auth-token'))) {
       return <Redirect to="/" />
-    }
+    } 
     const {classes} = this.props;
     return (
         <main className={classes.main}>
@@ -149,52 +139,49 @@ class NewTransaction extends Component {
             <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.state.message}
             </Alert>
+            {(this.state.creditAccount === this.state.debitAccount) && ((this.state.creditAccount && this.state.debitAccount) !== '') ? 
+              <Alert style={{borderRadius: '0px'}} color='danger' isOpen={true}>
+                Credit Account and Debit Account cannot be same.
+              </Alert> : ''
+            }
             <Typography component="h1" variant="h5">
-                Add New Account
+                Add New Transaction
             </Typography>
-            <form className={classes.form} onSubmit={this.routeChange}>
+            <form className={classes.form} onSubmit={this.onSubmit}>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="accountName">Account Name</InputLabel>
-                <Input 
-                  type="text"
-                  name="accountName"
-                  id="accountName"
-                  placeholder="Account Name"
-                  onChange={this.onChange}
-                />
-              </FormControl>
-              <FormControl margin="normal" fullWidth>
-                <InputLabel htmlFor="alias">Alias Name</InputLabel>
-                <Input 
-                  type="text"
-                  name="alias"
-                  id="alias"
-                  placeholder="Alias Name"
-                  onChange={this.onChange}
-                />
-              </FormControl>
-              <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="tag">Tag</InputLabel>
+                <InputLabel htmlFor="debitAccount">Debit Account</InputLabel>
                 <Select
-                  value={this.state.tag}
+                  value={this.state.debitAccount}
                   onChange={this.onChange}
-                  input={<Input name="tag" id="tag" />}
+                  input={<Input name="debitAccount" id="debitAccount" />}
                 >
-                  {this.state.listOfTags.map((list, i) => (
-                      <MenuItem key={i} value={list}>{list}</MenuItem>
+                  {this.state.accList.map((acc, i) => (
+                      <MenuItem key={i} value={acc.accountName} style={{textTransform: 'capitalize'}}>{acc.accountName}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
               <FormControl margin="normal" required fullWidth>
-                <InputLabel htmlFor="inventoryAffects">Inventory Affects</InputLabel>
+                <InputLabel htmlFor="creditAccount">Credit Account</InputLabel>
                 <Select
-                  value={this.state.inventoryAffects}
+                  value={this.state.creditAccount}
                   onChange={this.onChange}
-                  input={<Input name="inventoryAffects" id="inventoryAffects" />}
+                  input={<Input name="creditAccount" id="creditAccount" />}
                 >
-                  <MenuItem value="false">False</MenuItem>
-                  <MenuItem value="true">True</MenuItem>
+                  {this.state.accList.map((acc, i) => (
+                      <MenuItem key={i} value={acc.accountName} style={{textTransform: 'capitalize'}}>{acc.accountName}</MenuItem>
+                  ))}
                 </Select>
+              </FormControl>
+              <FormControl margin="normal" fullWidth>
+                <InputLabel htmlFor="amount">Amount</InputLabel>
+                <Input 
+                  type="number"
+                  name="amount"
+                  id="amount"
+                  placeholder="Amount"
+                  onChange={this.onChange}
+                  inputProps={{ min: 0, step: 0.01 }}
+                />
               </FormControl>
               <FormControl margin="normal" fullWidth>
                 <InputLabel htmlFor="descreption">Description</InputLabel>
@@ -207,25 +194,40 @@ class NewTransaction extends Component {
                 />
               </FormControl>
               <FormControl margin="normal" fullWidth>
-                <InputLabel htmlFor="openingBalance">Opening Balance</InputLabel>
+                <InputLabel htmlFor="date">Date</InputLabel>
                 <Input 
-                  type="text"
-                  name="openingBalance"
-                  id="openingBalance"
-                  placeholder="Opening Balance"
+                  type="date"
+                  name="date"
+                  id="date"
+                  placeholder="Date"
+                  inputProps={{ min: '2017-01-01' }}
+                  value={this.state.date}
                   onChange={this.onChange}
                 />
               </FormControl>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="primary"
-                className={classes.submit}
-                style={{borderRadius: '0px'}}
-              >
-                Add
-              </Button>
+              {((this.state.creditAccount !== this.state.debitAccount) && (this.state.amount !== '') && (this.state.debitAccount !== '') && (this.state.creditAccount !== '')) ? 
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  style={{borderRadius: '0px'}}
+                >
+                  Add Transaction
+                </Button> : 
+                <Button
+                  type="submit"
+                  fullWidth
+                  disabled
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                  style={{borderRadius: '0px'}}
+                >
+                  Add Transaction
+                </Button>
+              }              
             </form>
           </Paper>
         </main>

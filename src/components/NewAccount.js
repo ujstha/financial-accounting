@@ -49,7 +49,7 @@ class NewAccount extends Component {
       alias: '',
       tag: '',
       descreption: '',
-      inventoryAffects: '',
+      inventoryAffects: 'false',
       openingBalance: '',
       listOfTags: [
         'bank account',
@@ -181,7 +181,7 @@ class NewAccount extends Component {
                   input={<Input name="tag" id="tag" />}
                 >
                   {this.state.listOfTags.map((list, i) => (
-                      <MenuItem key={i} value={list}>{list}</MenuItem>
+                      <MenuItem key={i} value={list} style={{textTransform: 'capitalize'}}>{list}</MenuItem>
                   ))}
                 </Select>
               </FormControl>
@@ -224,7 +224,7 @@ class NewAccount extends Component {
                 className={classes.submit}
                 style={{borderRadius: '0px'}}
               >
-                Add
+                Add Account
               </Button>
             </form>
           </Paper>

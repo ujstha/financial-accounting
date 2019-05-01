@@ -9,6 +9,8 @@ import Example from './components/error';
 import NewAccount from './components/NewAccount';
 import Transaction from './components/transaction';
 import DeleteAccount from './components/DeleteAccount';
+import NewTransaction from './components/NewTransaction';
+import PersonalDetails from './components/PersonalDetails';
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { deepPurple } from '@material-ui/core/colors';
@@ -48,12 +50,14 @@ class App extends Component {
         <BrowserRouter>
           <div className="App">
             <NavBar />
-            <div style={{ marginTop: '60px' }} className="container-fluid">
+            <div style={{ marginTop: '60px', marginBottom: '60px' }} className="container-fluid">
               <Switch>
                 <Route path="/" component={Login} exact></Route>
                 <Route path="/register" component={Register} exact></Route>
                 <Route path="/dashboard" component={Dashboard}></Route>
                 <Route path="/newAccount" component={NewAccount}></Route>
+                <Route path="/newTransaction" component={NewTransaction}></Route>
+                <Route path="/personalDetails" component={PersonalDetails}></Route>
                 <Route path="/transaction/:accountName" component={Transaction}></Route>
                 <Route path="/deleteAccount/:accountName" component={DeleteAccount}></Route>
                 <Route  component={Example}></Route>

@@ -48,8 +48,8 @@ class Login extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       toDashboard: false,
       visible: false,
       infoColor: '',
@@ -74,8 +74,6 @@ class Login extends Component {
     }
     axios.post(`https://financial-report.herokuapp.com/api/login`, user)
       .then(res => {
-        console.log(res);
-        console.log(res.data);
         localStorage.setItem('x-auth-token',res.data.token);
         if(res.data.token) {
           document.location = "/dashboard";

@@ -48,8 +48,8 @@ class Register extends Component {
     super(props)
     this.state = {
       message: '',
-      username: "",
-      password: "",
+      username: '',
+      password: '',
       toDashboard: false,
       visible: false,
       infoColor: ''
