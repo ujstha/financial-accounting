@@ -49,6 +49,8 @@ class Register extends Component {
     this.state = {
       message: '',
       name: '',
+      firstname: '',
+      lastname: '',
       username: '',
       password: '',
       toDashboard: false,
@@ -64,7 +66,7 @@ class Register extends Component {
     this.setState({ 
       visible: true,
       infoColor: 'success',
-      message: 'Registration Successful.... Redirecting to Login Page in 3 seconds.'
+      message: 'Registration Successful.... Redirecting to Login Page in '
     });
   };
 
@@ -87,7 +89,7 @@ class Register extends Component {
   routeChange = (event) => {
     event.preventDefault();
     const user = {
-      "name": this.state.name,
+      "name": this.state.firstname+" "+this.state.lastname,
       "username": this.state.username,
       "password": this.state.password
     }
@@ -97,9 +99,15 @@ class Register extends Component {
         console.log(res.data);
         if(res.data) {
           this.handleSuccess();
-          setTimeout(() => {
-            document.location = "/"
-          }, 3000);
+          var timeleft = 3;
+          var downloadTimer = setInterval(function(){
+            document.getElementById("countdown").innerHTML = timeleft + " seconds.";
+            timeleft -= 1;
+            if(timeleft <= 0){
+              clearInterval(downloadTimer);
+              document.location = '/'
+            }
+          }, 1000);
         }  
       })
       .catch(err => {
@@ -119,6 +127,7 @@ class Register extends Component {
           <Paper className={classes.paper} style={{borderRadius: '0px'}}>
             <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.state.message}
+              <b id="countdown"></b>
             </Alert>
             <Avatar className={classes.avatar}>
               <LockOutlinedIcon />
@@ -127,14 +136,34 @@ class Register extends Component {
             Register
             </Typography>
             <form className={classes.form} onSubmit={this.routeChange}>
-              <FormControl margin="normal" required fullWidth>
+              <FormControl margin="normal" fullWidth>
                 <InputLabel htmlFor="name">Full Name</InputLabel>
                 <Input 
                   type="text"
                   name="name"
                   id="name"
                   placeholder="Full Name"
-                  onChange={this.onChange} 
+                  value={this.state.firstname + " " + this.state.lastname}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="firstname">First Name</InputLabel>
+                <Input 
+                  type="text"
+                  name="firstname"
+                  id="firstname"
+                  placeholder="First Name"
+                  onChange={this.onChange}
+                />
+              </FormControl>
+              <FormControl margin="normal" required fullWidth>
+                <InputLabel htmlFor="lastname">Last Name</InputLabel>
+                <Input 
+                  type="text"
+                  name="lastname"
+                  id="lastname"
+                  placeholder="Last Name"
+                  onChange={this.onChange}
                 />
               </FormControl>
               <FormControl margin="normal" required fullWidth>

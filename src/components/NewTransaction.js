@@ -80,7 +80,7 @@ class NewTransaction extends Component {
     this.setState({ 
       visible: true,
       infoColor: 'success',
-      message: 'Transaction was added successful.... Redirecting to Dashboard in 3 seconds.'
+      message: 'Transaction was added successful.... Redirecting to Dashboard in '
     });
   };
 
@@ -117,9 +117,18 @@ class NewTransaction extends Component {
     .then(res => {
       if(res.data) {
         this.handleSuccess();
-        setTimeout(() => {
+        /*setTimeout(() => {
           document.location = "/dashboard"
-        }, 3000);
+        }, 3000);*/
+        var timeleft = 3;
+          var downloadTimer = setInterval(function(){
+            document.getElementById("countdown").innerHTML = timeleft + " seconds.";
+            timeleft -= 1;
+            if(timeleft <= 0){
+              clearInterval(downloadTimer);
+              document.location = '/dashboard'
+            }
+          }, 1000);
       }  
       console.log(res.data)
     })
@@ -139,6 +148,7 @@ class NewTransaction extends Component {
           <Paper className={classes.paper} style={{borderRadius: '0px'}}>
             <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.state.message}
+              <b id="countdown"></b>
             </Alert>
             {(this.state.creditAccount === this.state.debitAccount) && ((this.state.creditAccount && this.state.debitAccount) !== '') ? 
               <Alert style={{borderRadius: '0px'}} color='danger' isOpen={true}>
@@ -154,7 +164,7 @@ class NewTransaction extends Component {
                 <Select
                   value={this.state.debitAccount}
                   onChange={this.onChange}
-                  input={<Input name="debitAccount" id="debitAccount" />}
+                  input={<Input name="debitAccount" id="debitAccount" style={{textTransform: 'capitalize'}} />}
                 >
                   {this.state.accList.map((acc, i) => (
                       <MenuItem key={i} value={acc.accountName} style={{textTransform: 'capitalize'}}>{acc.accountName}</MenuItem>
@@ -166,7 +176,7 @@ class NewTransaction extends Component {
                 <Select
                   value={this.state.creditAccount}
                   onChange={this.onChange}
-                  input={<Input name="creditAccount" id="creditAccount" />}
+                  input={<Input name="creditAccount" id="creditAccount" style={{textTransform: 'capitalize'}} />}
                 >
                   {this.state.accList.map((acc, i) => (
                       <MenuItem key={i} value={acc.accountName} style={{textTransform: 'capitalize'}}>{acc.accountName}</MenuItem>

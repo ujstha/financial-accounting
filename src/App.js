@@ -14,6 +14,7 @@ import PersonalDetails from './components/PersonalDetails';
 import MuiThemeProvider from "@material-ui/core/styles/MuiThemeProvider";
 import { createMuiTheme } from "@material-ui/core/styles";
 import { deepPurple } from '@material-ui/core/colors';
+import Back from './components/back';
 
 const theme = createMuiTheme({
   palette: {
@@ -62,6 +63,7 @@ class App extends Component {
                 <Route path="/deleteAccount/:accountName" component={DeleteAccount}></Route>
                 <Route  component={Example}></Route>
               </Switch>
+              <Back />
             </div>
           </div>
         </BrowserRouter>

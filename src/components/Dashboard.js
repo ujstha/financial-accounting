@@ -170,7 +170,7 @@ class Dashboard extends Component {
       <div className="col-lg-8 offset-lg-2 col-md-12 mt-3" key={i}>
         <ExpansionPanel style={{borderRadius: '0px'}}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} >
-            <Typography className={classes.heading} style={{textTransform: 'uppercase'}} noWrap>{acc.accountName} Account</Typography>
+            <Typography className={classes.heading} style={{textTransform: 'uppercase'}} noWrap>{acc.accountName}</Typography>
             <Typography className={classes.heading} style={{textTransform: 'uppercase'}}>
               <Link style={{color: 'red', float: 'right'}} to={`/deleteAccount/${acc.accountName}`}><DeleteIcon /></Link>
             </Typography>
@@ -187,7 +187,7 @@ class Dashboard extends Component {
               <b>Closing Balance History</b>
               <div className="row">
                 {acc.closingBalanceHistory.map((accHistory, i) => (
-                  <div className="col-md-3 my-3" key={i}>
+                  <div className="col-md-4 my-3" key={i}>
                     <Card className={classes.card} style={{borderRadius: '0px'}}>
                       <CardContent>
                         <Typography style={{fontSize: '16px'}} component={'span'}>

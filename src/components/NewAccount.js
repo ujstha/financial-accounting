@@ -87,7 +87,7 @@ class NewAccount extends Component {
     this.setState({ 
       visible: true,
       infoColor: 'success',
-      message: 'Account was added successful.... Redirecting to Dashboard in 3 seconds.'
+      message: 'Account was added successful.... Redirecting to Dashboard in '
     });
   };
 
@@ -110,7 +110,7 @@ class NewAccount extends Component {
   routeChange = (event) => {
     event.preventDefault();
     const account = {
-      "accountName": this.state.accountName,
+      "accountName": this.state.accountName + ' Account',
       "alias": this.state.alias,
       "tag": this.state.tag,
       "inventoryAffects": this.state.inventoryAffects,
@@ -127,9 +127,15 @@ class NewAccount extends Component {
       console.log(res.data);
       if(res.data) {
         this.handleSuccess();
-        setTimeout(() => {
-          document.location = "/dashboard"
-        }, 3000);
+        var timeleft = 3;
+        var downloadTimer = setInterval(function(){
+          document.getElementById("countdown").innerHTML = timeleft + " seconds.";
+          timeleft -= 1;
+          if(timeleft <= 0){
+            clearInterval(downloadTimer);
+            document.location = '/dashboard'
+          }
+        }, 1000);
       }  
     })
     .catch(err => {
@@ -148,6 +154,7 @@ class NewAccount extends Component {
           <Paper className={classes.paper} style={{borderRadius: '0px'}}>
             <Alert style={{borderRadius: '0px'}} color={this.state.infoColor} isOpen={this.state.visible} toggle={this.onDismiss}>
               {this.state.message}
+              <b id="countdown"></b>
             </Alert>
             <Typography component="h1" variant="h5">
                 Add New Account
@@ -178,7 +185,7 @@ class NewAccount extends Component {
                 <Select
                   value={this.state.tag}
                   onChange={this.onChange}
-                  input={<Input name="tag" id="tag" />}
+                  input={<Input name="tag" id="tag" style={{textTransform: 'capitalize'}} />}
                 >
                   {this.state.listOfTags.map((list, i) => (
                       <MenuItem key={i} value={list} style={{textTransform: 'capitalize'}}>{list}</MenuItem>

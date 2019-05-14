@@ -42,7 +42,7 @@ class Transaction extends Component {
         ));
         return (
         <div>
-            Transaction Id : {this.props.match.params.id}
+            Account Name : {this.props.match.params.accountName}
             {acc}
         </div>
         );
